@@ -2,51 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Order Custom di Deka Tutorial</title>
+
+  <!-- CSS dan JS dari Deka Tutorial -->
+  <link rel="stylesheet" type="text/css" href="https://dekatutorial.github.io/crd/s.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
   <script src="https://dekatutorial.github.io/crd/s.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://dekatutorial.github.io/crd/s.css" />
 </head>
 <body>
 
-<div class="ctnr">
-  <div class="lv">
-    <img src="https://dekatutorial.github.io/crd/lv.svg" />
-    <p>Klik Love-nya</p>
+  <script>dt()</script>
+
+  <div class="ctnr">
+    <div class="lv">
+      <img src="https://dekatutorial.github.io/crd/lv.svg" />
+      <p>Klik Love-nya</p>
+    </div>
+    <div class="ctn">
+      <button class="btn next">[ Lanjut ]</button>
+      <button class="btn send">[ Kirim Pesan ]</button>
+    </div>
   </div>
-  <div class="ctn">
-    <button class="btn next">[ Lanjut ]</button>
-    <button class="btn send">[ Kirim Pesan ]</button>
-  </div>
-</div>
 
-<!-- FORM TAMBAHAN -->
-<form id="emailForm" action="https://formspree.io/f/xovwbpyr" method="POST" style="display:none;">
-  <input type="hidden" name="pesan" id="hiddenPesan" />
-</form>
+  <script>
+    /*=========================
+    Mau custom web ucapan online? Order Aja di Deka Tutorial !! (DM untuk order)
+    + Youtube: Deka Tutorial
+    + Tiktok: @deka_tutorial
+    + Instagram: deka_tutorial
+    =========================*/
 
-<script>
-konten = [
-  { gambar: "stiker1.gif", ucapan: "annyeonghaseo~" },
-  { gambar: "stiker2.gif", ucapan: "Happy Birthday ya!" },
-  { gambar: "stiker3.gif", ucapan: "yeay sudah umur 23" },
-  { gambar: "stiker4.gif", ucapan: "semoga sehat, bahagia selalu" },
-  { gambar: "stiker5.gif", ucapan: "dan semoga sukses selalu, banyak rezekinya (biar bisa beliin aku jajan hehe)" },
-  { gambar: "stiker6.gif", ucapan: "wuf u~~" },
-];
+    konten = [
+      {
+        gambar: "stiker1.gif",
+        ucapan: "annyeonghaseo~",
+      },
+      {
+        gambar: "stiker2.gif",
+        ucapan: "Happy Birthday ya!",
+      },
+      {
+        gambar: "stiker3.gif",
+        ucapan: "yeay sudah umur 23",
+      },
+      {
+        gambar: "stiker4.gif",
+        ucapan: "semoga sehat, bahagia selalu",
+      },
+      {
+        gambar: "stiker5.gif",
+        ucapan: "dan semoga sukses selalu, banyak rezekinya (biar bisa beliin aku jajan hehe)",
+      },
+      {
+        gambar: "stiker6.gif",
+        ucapan: "wuf u~~",
+      },
+    ];
 
-musik = "musik.mp3";
-nomorWhatsapp = "6281xxx";
+    musik = "musik.mp3"; // pastikan file ini ada di root folder GitHub kamu
+    nomorWhatsapp = "6281xxx"; // ganti sesuai nomor tujuan
 
-DekaTutorial(konten, musik, nomorWhatsapp);
-
+    DekaTutorial(konten, musik, nomorWhatsapp);
 // Kirim pesan ke email saat tombol diklik
 document.querySelector('.send').addEventListener('click', function () {
   const pesanFinal = konten.map(k => k.ucapan).join('\n');
   document.getElementById('hiddenPesan').value = pesanFinal;
 
-  fetch("https://formspree.io/f/YOUR_FORM_ID", {
+  fetch("https://formspree.io/f/xovwbpyr", {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ pesan: pesanFinal })
@@ -58,8 +81,8 @@ document.querySelector('.send').addEventListener('click', function () {
       Swal.fire('Gagal :(', 'Pesan gagal dikirim. Coba lagi nanti.', 'error');
     }
   });
-});
-</script>
+    
+  </script>
 
 </body>
 </html>
