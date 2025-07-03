@@ -1,57 +1,65 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kontak</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      padding: 20px;
-    }
-    form {
-      max-width: 500px;
-      margin: 0 auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, textarea {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #007BFF;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Custom di Deka Tutorial</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
+  <script src="https://dekatutorial.github.io/crd/s.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://dekatutorial.github.io/crd/s.css" />
 </head>
 <body>
 
-  <h2>Hubungi Kami</h2>
+<div class="ctnr">
+  <div class="lv">
+    <img src="https://dekatutorial.github.io/crd/lv.svg" />
+    <p>Klik Love-nya</p>
+  </div>
+  <div class="ctn">
+    <button class="btn next">[ Lanjut ]</button>
+    <button class="btn send">[ Kirim Pesan ]</button>
+  </div>
+</div>
 
-  <form action="https://formsubmit.co/anisafaza25@gmail.com" method="POST">
-    <input type="text" name="name" placeholder="Nama Anda" required>
-    <input type="email" name="email" placeholder="Email Anda" required>
-    <textarea name="message" rows="5" placeholder="Pesan Anda..." required></textarea>
+<!-- FORM TAMBAHAN -->
+<form id="emailForm" action="https://formspree.io/f/xovwbpyr" method="POST" style="display:none;">
+  <input type="hidden" name="pesan" id="hiddenPesan" />
+</form>
 
-    <!-- FormSubmit hidden fields -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://anisafaza.github.io/unknown/terima-kasih.html">
+<script>
+konten = [
+  { gambar: "stiker1.gif", ucapan: "annyeonghaseo~" },
+  { gambar: "stiker2.gif", ucapan: "Happy Birthday ya!" },
+  { gambar: "stiker3.gif", ucapan: "yeay sudah umur 23" },
+  { gambar: "stiker4.gif", ucapan: "semoga sehat, bahagia selalu" },
+  { gambar: "stiker5.gif", ucapan: "dan semoga sukses selalu, banyak rezekinya (biar bisa beliin aku jajan hehe)" },
+  { gambar: "stiker6.gif", ucapan: "wuf u~~" },
+];
 
-    <button type="submit">Kirim Pesan</button>
-  </form>
+musik = "musik.mp3";
+nomorWhatsapp = "6281xxx";
+
+DekaTutorial(konten, musik, nomorWhatsapp);
+
+// Kirim pesan ke email saat tombol diklik
+document.querySelector('.send').addEventListener('click', function () {
+  const pesanFinal = konten.map(k => k.ucapan).join('\n');
+  document.getElementById('hiddenPesan').value = pesanFinal;
+
+  fetch("https://formspree.io/f/YOUR_FORM_ID", {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pesan: pesanFinal })
+  })
+  .then(response => {
+    if (response.ok) {
+      Swal.fire('Terkirim!', 'Pesan kamu sudah terkirim ke email.', 'success');
+    } else {
+      Swal.fire('Gagal :(', 'Pesan gagal dikirim. Coba lagi nanti.', 'error');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
