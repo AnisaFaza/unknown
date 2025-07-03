@@ -15,73 +15,65 @@
   <script>dt()</script>
 
   <div class="ctnr">
-    <div class="lv">
+    <div class="lv" onclick="document.querySelector('.next').click()">
       <img src="https://dekatutorial.github.io/crd/lv.svg" />
       <p>Klik Love-nya</p>
     </div>
+
     <div class="ctn">
       <button class="btn next">[ Lanjut ]</button>
       <button class="btn send">[ Kirim Pesan ]</button>
     </div>
   </div>
 
+  <!-- Hidden Form to enable Formspree submission -->
+  <form id="formKirim" style="display:none">
+    <input type="hidden" name="pesan" id="hiddenPesan" />
+  </form>
+
   <script>
     /*=========================
-    Mau custom web ucapan online? Order Aja di Deka Tutorial !! (DM untuk order)
+    Mau custom web ucapan online? Order Aja di Deka Tutorial !!
     + Youtube: Deka Tutorial
     + Tiktok: @deka_tutorial
     + Instagram: deka_tutorial
     =========================*/
 
-    konten = [
-      {
-        gambar: "stiker1.gif",
-        ucapan: "annyeonghaseo~",
-      },
-      {
-        gambar: "stiker2.gif",
-        ucapan: "Happy Birthday ya!",
-      },
-      {
-        gambar: "stiker3.gif",
-        ucapan: "yeay sudah umur 23",
-      },
-      {
-        gambar: "stiker4.gif",
-        ucapan: "semoga sehat, bahagia selalu",
-      },
-      {
-        gambar: "stiker5.gif",
-        ucapan: "dan semoga sukses selalu, banyak rezekinya (biar bisa beliin aku jajan hehe)",
-      },
-      {
-        gambar: "stiker6.gif",
-        ucapan: "wuf u~~",
-      },
+    const konten = [
+      { gambar: "stiker1.gif", ucapan: "annyeonghaseo~" },
+      { gambar: "stiker2.gif", ucapan: "Happy Birthday ya!" },
+      { gambar: "stiker3.gif", ucapan: "yeay sudah umur 23" },
+      { gambar: "stiker4.gif", ucapan: "semoga sehat, bahagia selalu" },
+      { gambar: "stiker5.gif", ucapan: "dan semoga sukses selalu, banyak rezekinya (biar bisa beliin aku jajan hehe)" },
+      { gambar: "stiker6.gif", ucapan: "wuf u~~" }
     ];
 
-    musik = "musik.mp3"; // pastikan file ini ada di root folder GitHub kamu
-    nomorWhatsapp = "6281xxx"; // ganti sesuai nomor tujuan
+    const musik = "musik.mp3"; // pastikan file ini ada di root folder GitHub kamu
+    const nomorWhatsapp = "6281xxxxxxx"; // Ganti sesuai nomor tujuan
 
     DekaTutorial(konten, musik, nomorWhatsapp);
-// Kirim pesan ke email saat tombol diklik
-document.querySelector('.send').addEventListener('click', function () {
-  const pesanFinal = konten.map(k => k.ucapan).join('\n');
-  document.getElementById('hiddenPesan').value = pesanFinal;
 
-  fetch("https://formspree.io/f/xovwbpyr", {
-    method: "POST",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ pesan: pesanFinal })
-  })
-  .then(response => {
-    if (response.ok) {
-      Swal.fire('Terkirim!', 'Pesan kamu sudah terkirim ke email.', 'success');
-    } else {
-      Swal.fire('Gagal :(', 'Pesan gagal dikirim. Coba lagi nanti.', 'error');
-    }
-  });
-    
+    // Tombol kirim pesan
+    document.querySelector('.send').addEventListener('click', function () {
+      const pesanFinal = konten.map(k => k.ucapan).join('\n');
+      document.getElementById('hiddenPesan').value = pesanFinal;
+
+      fetch("https://formspree.io/f/xovwbpyr", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pesan: pesanFinal })
+      })
+      .then(response => {
+        if (response.ok) {
+          Swal.fire('Terkirim!', 'Pesan kamu sudah terkirim ke email.', 'success');
+        } else {
+          Swal.fire('Gagal :(', 'Pesan gagal dikirim. Coba lagi nanti.', 'error');
+        }
+      })
+      .catch(err => {
+        Swal.fire('Gagal :(', 'Terjadi kesalahan. Coba lagi.', 'error');
+      });
+    });
   </script>
 
 </body>
