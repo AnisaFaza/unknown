@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Order Custom di Deka Tutorial</title>
 
-  <!-- CSS dan JS dari Deka Tutorial -->
+  <!-- Gaya dan animasi -->
   <link rel="stylesheet" type="text/css" href="https://dekatutorial.github.io/crd/s.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
   <script src="https://dekatutorial.github.io/crd/s.js"></script>
@@ -21,49 +21,52 @@
     </div>
     <div class="ctn">
       <button class="btn next">[ Lanjut ]</button>
-      <button class="btn send">[ Kirim Pesan ]</button>
+      <button class="btn send" onclick="kirimPesan()">[ Kirim Pesan ]</button>
     </div>
   </div>
 
-  <script>
-    /*=========================
-    Mau custom web ucapan online? Order Aja di Deka Tutorial !! (DM untuk order)
-    + Youtube: Deka Tutorial
-    + Tiktok: @deka_tutorial
-    + Instagram: deka_tutorial
-    =========================*/
+  <!-- Form tersembunyi untuk dikirim ke formsubmit -->
+  <form id="formPesan" action="https://formsubmit.co/anisafaza25@gmail.com" method="POST" style="display:none;">
+    <input type="hidden" name="_subject" value="Pesan dari Web Ucapan!">
+    <input type="hidden" name="pesan" id="inputPesan">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://your-website.com/terima-kasih.html">
+  </form>
 
+  <script>
     konten = [
-      {
-        gambar: "stiker1.gif",
-        ucapan: "annyeonghaseo~",
-      },
-      {
-        gambar: "stiker2.gif",
-        ucapan: "Happy Birthday ya!",
-      },
-      {
-        gambar: "stiker3.gif",
-        ucapan: "yeay sudah umur 23",
-      },
-      {
-        gambar: "stiker4.gif",
-        ucapan: "semoga sehat, bahagia selalu",
-      },
-      {
-        gambar: "stiker5.gif",
-        ucapan: "dan semoga sukses selalu, banyak rezekinya (biar bisa beliin aku jajan hehe)",
-      },
-      {
-        gambar: "stiker6.gif",
-        ucapan: "wuf u~~",
-      },
+      { gambar: "stiker1.gif", ucapan: "annyeonghaseo~" },
+      { gambar: "stiker2.gif", ucapan: "Happy Birthday ya!" },
+      { gambar: "stiker3.gif", ucapan: "yeay sudah umur 23" },
+      { gambar: "stiker4.gif", ucapan: "semoga sehat, bahagia selalu" },
+      { gambar: "stiker5.gif", ucapan: "dan semoga sukses selalu, banyak rezekinya (biar bisa beliin aku jajan hehe)" },
+      { gambar: "stiker6.gif", ucapan: "wuf u~ Mas Putraa~" }
     ];
 
-    musik = "musik.mp3"; // pastikan file ini ada di root folder GitHub kamu
-    nomorWhatsapp = "6281xxx"; // ganti sesuai nomor tujuan
+    musik = "musik.mp3";
+    nomorWhatsapp = "6281xxx";
 
     DekaTutorial(konten, musik, nomorWhatsapp);
+
+    function kirimPesan() {
+      Swal.fire({
+        title: 'Tulis pesanmu!',
+        input: 'textarea',
+        inputLabel: 'Pesan',
+        inputPlaceholder: 'Tulis di sini...',
+        inputAttributes: {
+          'aria-label': 'Tulis pesanmu di sini'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Kirim',
+      }).then((result) => {
+        if (result.isConfirmed && result.value.trim() !== "") {
+          // Isi pesan ke form tersembunyi dan submit
+          document.getElementById("inputPesan").value = result.value;
+          document.getElementById("formPesan").submit();
+        }
+      });
+    }
   </script>
 
 </body>
