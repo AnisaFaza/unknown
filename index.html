@@ -26,12 +26,14 @@
   </div>
 
   <!-- Form tersembunyi untuk dikirim ke formsubmit -->
-  <form id="formPesan" action="https://formsubmit.co/anisafaza25@gmail.com" method="POST" style="display:none;">
-    <input type="hidden" name="_subject" value="Pesan dari Web Ucapan!">
-    <input type="hidden" name="pesan" id="inputPesan">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://anisafaza.github.io/unknown/terima-kasih.html">
-  </form>
+  <form action="https://formsubmit.co/anisafaza@gmail.com" method="POST">
+  <input type="hidden" name="_next" value="https://anisafaza.github.io/unknown/terima-kasih.html">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="text" name="nama" required>
+  <input type="text" name="pesan" id="inputPesan" required>
+  <button type="submit">Kirim Pesan</button>
+</form>
+
 
   <script>
     konten = [
